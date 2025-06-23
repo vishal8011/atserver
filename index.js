@@ -6,11 +6,12 @@ const app = express();
 const PORT = 5000;
 
 // ✅ Middleware
-app.use(cors());
-app.use(express.json());
+app.get("/", (req, res) => {
+    res.send("API is working!");
+});
 
 // ✅ MongoDB Connection
-mongoose.connect("mongodb+srv://vraj3918011:QYCkWCUriScv8KP9@vvs.p6vnb3m.mongodb.net/attendences", {
+mongoose.connect("mongodb+srv://vraj3918011:<db_password>@vvs.p6vnb3m.mongodb.net/?retryWrites=true&w=majority&appName=VVS", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 })
@@ -180,5 +181,6 @@ app.put("/api/students/:id", async (req, res) => {
 
 // ✅ Start server
 app.listen(PORT, () => {
-    console.log(` Server running at http://localhost:${PORT}`);
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
